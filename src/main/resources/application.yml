@@ -1,0 +1,15 @@
+server:
+  port: 4650
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: mail-service
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/mail/**
+        - id: login-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/login/**
