@@ -8,8 +8,30 @@ eureka:
 spring:
   application:
     name: Api-Gateway
+  security:
+    oauth2:
+      client:
+        provider:
+          discord:
+            authorizationUri: https://discordapp.com/api/oauth2/authorize
+            tokenUri: https://discordapp.com/api/oauth2/token
+            userInfoUri: https://discordapp.com/api/users/@me
+            user-name-attribute: username
+        registration:
+          discord:
+            provider: discord
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            client-authentication-method: post
+            redirect-uri: http://localhost:4650/login/oauth2/code/discord
+            scope:
+              - identify
+
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay=
       routes:
         - id: mail-service
           uri: lb://mail-service
@@ -19,3 +41,7 @@ spring:
           uri: lb://login-service
           predicates:
             - Path=/login/**
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/event/**
