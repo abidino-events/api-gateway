@@ -12,19 +12,17 @@ spring:
     oauth2:
       client:
         registration:
-          google:
-            provider: github
+          quotes-client:
+            provider: keycloak
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
-            authorization-grant-type: authorization_code
-            client-authentication-method: post
-            redirect-uri: http://localhost:4650/login/oauth2/code/github
             scope:
               - email
+              - profile
+              - roles
         provider:
-          github
-            issuer-uri: https://token.actions.githubusercontent.com
-            jwk-set-uri: https://token.actions.githubusercontent.com/.well-known/openid-configuration
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/event
   cloud:
     gateway:
       default-filters:
