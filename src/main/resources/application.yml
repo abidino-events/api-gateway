@@ -13,18 +13,18 @@ spring:
       client:
         registration:
           google:
-            provider: google
+            provider: github
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
             authorization-grant-type: authorization_code
             client-authentication-method: post
-            redirect-uri: http://localhost:4650/login/oauth2/code/google
+            redirect-uri: http://localhost:4650/login/oauth2/code/github
             scope:
               - email
         provider:
-          google:
-            issuer-uri: https://accounts.google.com
-            jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+          github
+            issuer-uri: https://token.actions.githubusercontent.com
+            jwk-set-uri: https://token.actions.githubusercontent.com/.well-known/openid-configuration
   cloud:
     gateway:
       default-filters:
