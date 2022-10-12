@@ -13,6 +13,7 @@ spring:
       client:
         registration:
           quotes-client:
+            redirect-uri: http://localhost:4650/login/oauth2/code/quotes-client
             provider: keycloak
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
@@ -22,7 +23,7 @@ spring:
               - roles
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/event
+            issuer-uri: http://localhost:9001/auth/realms/event
   cloud:
     gateway:
       default-filters:
