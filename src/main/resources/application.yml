@@ -31,14 +31,16 @@ spring:
       routes:
         - id: mail-service
           uri: lb://mail-service
-          filters:
-            - TokenRelay=
           predicates:
             - Path=/mail/**
-        - id: auth-service
-          uri: lb://auth-service
+        - id: user-service
+          uri: lb://user-service
           predicates:
-            - Path=/auth/**
+            - Path=/user/**
+        - id: organization-service
+          uri: lb://organization-service
+          predicates:
+            - Path=/organization/**
         - id: event-service
           uri: lb://event-service
           predicates:
