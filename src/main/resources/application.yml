@@ -23,7 +23,7 @@ spring:
               - roles
         provider:
           keycloak:
-            issuer-uri: http://localhost:9001/auth/realms/event
+            issuer-uri: http://localhost:9000/realms/event
   cloud:
     gateway:
       default-filters:
@@ -31,13 +31,16 @@ spring:
       routes:
         - id: mail-service
           uri: lb://mail-service
+          filters:
+            - TokenRelay=
           predicates:
             - Path=/mail/**
-        - id: login-service
-          uri: lb://login-service
+        - id: auth-service
+          uri: lb://auth-service
           predicates:
-            - Path=/login/**
+            - Path=/auth/**
         - id: event-service
           uri: lb://event-service
           predicates:
             - Path=/event/**
+
