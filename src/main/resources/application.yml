@@ -10,24 +10,28 @@ spring:
     name: Api-Gateway
   security:
     oauth2:
-      client:
-        registration:
-          quotes-client:
-            redirect-uri: http://localhost:4650/login/oauth2/code/quotes-client
-            provider: keycloak
-            client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
-            scope:
-              - email
-              - profile
-              - roles
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:9000/realms/event
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000/realms/event
+# if you are client config like the bottom
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          quotes-client:
+#            redirect-uri: http://localhost:4200/login/oauth2/code/quotes-client
+#            provider: keycloak
+#            client-id: ${CLIENT_ID}
+#            client-secret: ${CLIENT_SECRET}
+#            scope:
+#              - email
+#              - profile
+#              - roles
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:9000/realms/event
   cloud:
     gateway:
-      default-filters:
-        - TokenRelay=
       routes:
         - id: mail-service
           uri: lb://mail-service
